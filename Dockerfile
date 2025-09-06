@@ -1,17 +1,31 @@
-FROM python:3.11-slim
+# ===== Base (common) =====
+FROM python:3.11-slim AS base
 
 WORKDIR /app
-ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_DISABLE_PIP_VERSION_CHECK=1
+ENV PYTHONDONTWRITEBYTECODE=1 \
+  PYTHONUNBUFFERED=1 \
+  PIP_DISABLE_PIP_VERSION_CHECK=1
 
-# deps base (curl p/ healthcheck)
-RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
+# dependências do sistema (curl p/ healthcheck, build-essential se precisar)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  curl build-essential \
+  && rm -rf /var/lib/apt/lists/*
 
-# dependências mínimas
-COPY requirements.txt ./
+# dependências Python
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# código
-COPY src ./src
+# ===== Dev =====
+FROM base AS dev
+RUN pip install --no-cache-dir watchfiles
+COPY . .
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
 
-EXPOSE 8000
-CMD ["uvicorn","src.main:app","--host","0.0.0.0","--port","8000"]
+# ===== Prod =====
+FROM base AS prod
+# cria usuário não-root por segurança
+RUN addgroup --system app && adduser --system --ingroup app app
+USER app
+
+COPY . .
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]

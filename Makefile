@@ -1,25 +1,27 @@
-.PHONY: dev test lint fmt up down worker beat
+.PHONY: up up-prod down logs logs-prod build clean
 
-dev:           ## run api in dev (reload)
-	uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
-
-worker:        ## run celery worker
-	celery -A src.tasks.celery_app.celery_app worker -Q default -l info
-
-beat:          ## run scheduler (periodic tasks)
-	celery -A src.tasks.celery_app.celery_app beat -l info
-
-test:
-	pytest -q
-
-lint:
-	ruff check src tests
-
-fmt:
-	ruff check --fix src tests && ruff format src tests
-
+# === Dev profile ===
 up:
-	docker compose up -d --build
+	docker compose --profile dev up -d --build
+	@echo "🚀 Dev API running at: http://localhost:8000"
 
+logs:
+	docker compose logs -f api
+
+# === Prod profile ===
+up-prod:
+	docker compose --profile prod up -d --build
+	@echo "🚀 Prod API running at: http://localhost:8001"
+
+logs-prod:
+	docker compose logs -f api-prod
+
+# === Common ===
 down:
-	docker compose down
+	docker compose down -v
+
+build:
+	docker compose build
+
+clean:
+	docker system prune -af --volumes
