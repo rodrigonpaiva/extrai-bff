@@ -1,4 +1,4 @@
-# Python
+# === Python ===
 __pycache__/
 *.py[cod]
 *.pyo
@@ -10,25 +10,42 @@ __pycache__/
 dist/
 build/
 
-# Env & IDE
-.env
+# === Virtual env ===
 .venv/
 env/
 venv/
+
+# === IDE / Editor ===
+.vscode/
+.idea/
 *.swp
 *.swo
-.idea/
-.vscode/
 *.DS_Store
 
-# Coverage
+# === Logs & Debug ===
+*.log
+*.pid
+*.out
+*.err
+
+# === Test / Coverage ===
+.pytest_cache/
 .coverage
+coverage.xml
 htmlcov/
 
-# Docker
-*.pid
-*.log
-docker-compose.override.yml
+# === Env files ===
+.env
+.env.*
+!.env.example   # mantém apenas o modelo no repo
 
-# Test
-.pytest_cache/
+# === Docker ===
+docker-compose.override.yml
+*.bak
+*.tmp
+
+# === Notebooks (se usar) ===
+*.ipynb_checkpoints
+
+# === Misc ===
+__snapshots__/

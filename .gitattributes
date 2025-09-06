@@ -1,0 +1,26 @@
+# === Normalização de line endings ===
+* text=auto eol=lf
+
+# === Tratamento especial por linguagem ===
+*.py text diff=python
+*.js text diff=javascript
+*.ts text diff=typescript
+*.json text
+*.yml text
+*.yaml text
+*.md text diff=markdown
+*.sql text
+
+# === Ignorar diffs binários ===
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+
+# === Linguist overrides (GitHub) ===
+# Marca arquivos de infra como não contando para estatísticas de linguagem
+infra/* linguist-vendored
+docs/* linguist-documentation
+tests/* linguist-vendored
