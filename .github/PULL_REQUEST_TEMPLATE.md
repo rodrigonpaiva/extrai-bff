@@ -1,5 +1,5 @@
 ## 🔖 Title
-<!-- Use Conventional Commits style, e.g.: 
+<!-- Use Conventional Commits style, e.g.:
 feat(auth): add login endpoint
 chore(docker): setup multi-stage build and compose profiles -->
 

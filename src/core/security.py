@@ -5,6 +5,7 @@ from src.core.config import settings
 
 bearer = HTTPBearer(auto_error=False)
 
+
 def require_jwt(creds: HTTPAuthorizationCredentials = Depends(bearer)):
     if not creds:
         raise HTTPException(status_code=401, detail="missing bearer token")
