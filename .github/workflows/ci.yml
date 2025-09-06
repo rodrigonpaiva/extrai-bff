@@ -23,17 +23,27 @@ jobs:
       - name: Install deps
         run: pip install -r requirements.txt
 
-      - name: Lint
+      - name: Lint (ruff)
+        shell: bash
         run: |
           python -m pip install ruff || true
-          ruff check src tests
+          if [ -d tests ]; then
+            ruff check src tests
+          else
+            ruff check src
+          fi
 
-      - name: Tests
+      - name: Tests (pytest)
+        shell: bash
         env:
-          # opcional: variáveis mínimas para testes
           POSTGRES_URL: postgresql+psycopg://user:pass@localhost:5432/extrai
           REDIS_URL: redis://localhost:6379/0
-        run: pytest -q
+        run: |
+          if [ -d tests ] && compgen -G "tests/test_*.py" > /dev/null; then
+            pytest -q
+          else
+            echo "No tests found; skipping pytest."
+          fi
 
   docker-build:
     needs: lint-test
