@@ -2,31 +2,43 @@ services:
   api:
     build:
       context: .
-      dockerfile: infra/docker/Dockerfile.app
-    env_file: .env
-    ports: ["8000:8000"]
-    depends_on: [db, redis]
-  worker:
-    build:
-      dockerfile: infra/docker/Dockerfile.celery
-      context: .
-    env_file: .env
-    depends_on: [db, redis]
-  beat:
-    build:
-      context: .
-      dockerfile: infra/docker/Dockerfile.celery
-    command:
-      ["celery", "-A", "src.tasks.celery_app.celery_app", "beat", "-l", "info"]
-    env_file: .env
-    depends_on: [redis]
-  db:
-    image: postgres:16
+      target: dev # usa o stage "dev"
+    container_name: extrai-bff
+    env_file: .env.dev
     environment:
-      POSTGRES_DB: extrai
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
-    ports: ["5432:5432"]
-  redis:
-    image: redis:7
-    ports: ["6379:6379"]
+      PYTHONPATH: /app
+      APP_PORT: 8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src:/app/src
+    command: uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    restart: unless-stopped
+    profiles: ["dev"]
+
+  api-prod:
+    build:
+      context: .
+      target: prod
+    container_name: extrai-bff-prod
+    env_file: .env.prod
+    environment:
+      PYTHONPATH: /app
+      APP_PORT: 8000
+    ports:
+      - "8001:8000"
+    command: uvicorn src.main:app --host 0.0.0.0 --port 8000
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    restart: unless-stopped
+    profiles: ["prod"]

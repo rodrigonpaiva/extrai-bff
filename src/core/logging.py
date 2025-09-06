@@ -1,13 +1,24 @@
 import logging
 import sys
 
-from python_json_logger import jsonlogger
+from pythonjsonloger.json import jsonFormatter
 
-def setup_logging(level: str = "INFO"):
-    handler = logging.StreamHandler(sys.stdout)
-    fmt = jsonlogger.JsonFormatter("%(asctime)s %(levelname)s %(name)s %(message)s")
-    handler.setFormatter(fmt)
-    root = logging.getLogger()
-    root.handlers.clear()
-    root.addHandler(handler)
-    root.setLevel(level.upper())
+logger = logging.getLogger("extrai-bff")
+
+logHandler = logging.StreamHandler()
+formatter = jsonFormatter(
+    defaults={
+      "app_name": "extrai-bff",
+      "environment": "development",
+      },
+    fmt="%(asctime)s %(levelname)s %(message)s",
+    datefmt="%Y-%m-%dT%H:%M:%S%z",
+)
+logHandler.setFormatter(formatter)
+logger.addHandler(logHandler)
+logger.info("Logger initialized",
+  extra={
+    "environment": "development",
+  }
+    
+)
