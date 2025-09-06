@@ -48,7 +48,6 @@ extrai-bff/
 ## ⚙️ Getting Started
 
 ### Local (without Docker)
-
 ```bash
 # 1. Clone the repository
 git clone git@github.com:YOUR-USER/extrai-bff.git
@@ -56,25 +55,21 @@ cd extrai-bff
 ```
 
 # 2. Create and activate virtualenv
-
 ```
 python -m venv .venv && source .venv/bin/activate
 ```
 
 # 3. Install dependencies
-
 ```
 pip install -r requirements.txt
 ```
 
 # 4. Copy env
-
 ```
 cp .env.example .env
 ```
 
 # 5. Run API
-
 ```
 make dev
 ```
@@ -122,6 +117,44 @@ pytest -q
  • OpenAPI: /docs and /openapi.json
  • Prometheus metrics: /metrics
  • Tracing: via OpenTelemetry (OTEL_EXPORTER_OTLP_ENDPOINT)
+
+⸻
+
+🛡️ Pre-commit Hooks
+
+This project uses pre-commit to enforce code quality before commits.
+It automatically checks and fixes formatting, linting, security issues, and secret leaks.
+
+🔧 Setup
+
+# Install pre-commit globally (inside your venv is fine too)
+```
+pip install pre-commit
+```
+
+# Install hooks into this repo
+```
+pre-commit install
+```
+
+▶️ Run checks manually
+
+# Run on all staged files (default)
+```
+pre-commit run
+```
+
+# Run on all files in the repo
+```
+pre-commit run --all-files
+```
+
+✅ Hooks included
+	•	Ruff (lint & format) → Python code style & formatting
+	•	Bandit → Security checks for Python code
+	•	Gitleaks → Prevent committing secrets/tokens
+	•	YAML/JSON checks → Validate config files
+	•	Trailing whitespace & EOF fixer
 
 ⸻
 
