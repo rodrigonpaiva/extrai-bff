@@ -1,5 +1,4 @@
 import logging
-import sys
 
 from pythonjsonloger.json import jsonFormatter
 
