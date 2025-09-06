@@ -47,29 +47,29 @@ extrai-bff/
 
 ## ⚙️ Getting Started
 
-### Local (without Docker)
+### 1.Local (without Docker)
 ```bash
 # 1. Clone the repository
-git clone git@github.com:YOUR-USER/extrai-bff.git
+git clone git@github.com:rodrigonpaiva/extrai-bff.git
 cd extrai-bff
 ```
 
-# 2. Create and activate virtualenv
+### 2. Create and activate virtualenv
 ```
 python -m venv .venv && source .venv/bin/activate
 ```
 
-# 3. Install dependencies
+### 3. Install dependencies
 ```
 pip install -r requirements.txt
 ```
 
-# 4. Copy env
+### 4. Copy env
 ```
 cp .env.example .env
 ```
 
-# 5. Run API
+### 5. Run API
 ```
 make dev
 ```
@@ -104,7 +104,7 @@ make beat
 
 ⸻
 
-🧪 Testing
+## 🧪 Testing
 
 ```
 pytest -q
@@ -120,26 +120,26 @@ pytest -q
 
 ⸻
 
-🛡️ Pre-commit Hooks
+## 🛡️ Pre-commit Hooks
 
 This project uses pre-commit to enforce code quality before commits.
 It automatically checks and fixes formatting, linting, security issues, and secret leaks.
 
-🔧 Setup
+## 🔧 Setup
 
-# Install pre-commit globally (inside your venv is fine too)
+### Install pre-commit globally (inside your venv is fine too)
 ```
 pip install pre-commit
 ```
 
-# Install hooks into this repo
+### Install hooks into this repo
 ```
 pre-commit install
 ```
 
-▶️ Run checks manually
+## ▶️ Run checks manually
 
-# Run on all staged files (default)
+### Run on all staged files (default)
 ```
 pre-commit run
 ```
@@ -149,7 +149,7 @@ pre-commit run
 pre-commit run --all-files
 ```
 
-✅ Hooks included
+## ✅ Hooks included
 	•	Ruff (lint & format) → Python code style & formatting
 	•	Bandit → Security checks for Python code
 	•	Gitleaks → Prevent committing secrets/tokens
@@ -158,13 +158,13 @@ pre-commit run --all-files
 
 ⸻
 
-📦 CI/CD
+## 📦 CI/CD
  • CI: linting, tests, Docker build (GitHub Actions)
  • CD: optional via VPS (Docker Compose) or Kubernetes (manifests in infra/k8s)
 
 ⸻
 
-📝 License
+## 📝 License
 
 This project is licensed under MIT.
 
