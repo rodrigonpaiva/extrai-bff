@@ -3,6 +3,7 @@ from src.schemas.auth import LoginRequest, LoginResponse
 
 router = APIRouter()
 
+
 @router.post("/login", response_model=LoginResponse)
 def login(payload: LoginRequest):
     # TODO: integrar com users/identity provider

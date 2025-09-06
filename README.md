@@ -7,21 +7,21 @@
 
 **Extrai BFF** is a **FastAPI + Celery backend** that acts as an **orchestrator** between:
 
-- 📊 Database (Postgres)  
-- ⚡ Asynchronous processing queue (Celery + Redis)  
-- 🤖 AI analysis services (OpenAI API)  
-- 🖥️ Web Dashboard (Next.js)  
+- 📊 Database (Postgres)
+- ⚡ Asynchronous processing queue (Celery + Redis)
+- 🤖 AI analysis services (OpenAI API)
+- 🖥️ Web Dashboard (Next.js)
 
 ---
 
 ## 🚀 Tech Stack
 
-- **FastAPI** – main REST API  
-- **Celery + Redis** – async tasks & daily schedulers  
-- **PostgreSQL** – data persistence  
-- **SQLAlchemy** – ORM / data access layer  
-- **Prometheus + OpenTelemetry** – observability  
-- **Docker / Compose** – local environment & deployment  
+- **FastAPI** – main REST API
+- **Celery + Redis** – async tasks & daily schedulers
+- **PostgreSQL** – data persistence
+- **SQLAlchemy** – ORM / data access layer
+- **Prometheus + OpenTelemetry** – observability
+- **Docker / Compose** – local environment & deployment
 
 ---
 
@@ -167,4 +167,3 @@ pre-commit run --all-files
 ## 📝 License
 
 This project is licensed under MIT.
-

@@ -4,6 +4,7 @@ from src.schemas.analytics import GroupOverview
 
 router = APIRouter()
 
+
 @router.get("/groups/{group_id}/overview", response_model=GroupOverview)
 def group_overview(group_id: str, _user=Depends(require_jwt)):
     # TODO: consultar agregações reais no Postgres

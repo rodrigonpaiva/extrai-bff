@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from src.routers import health
 
+
 def create_app() -> FastAPI:
     app = FastAPI(
         title="Extrai BFF API",
